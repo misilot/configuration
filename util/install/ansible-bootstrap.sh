@@ -79,6 +79,9 @@ then
 elif grep -q 'Bionic Beaver' /etc/os-release
 then
     SHORT_DIST="bionic"
+elif grep -q 'Focal Fossa' /etc/os-release
+then
+    SHORT_DIST="focal"
 else
     cat << EOF
 
@@ -118,8 +121,8 @@ fi
 add-apt-repository -y ppa:git-core/ppa
 
 # For older software we need to install our own PPA
-# Phased out with Ubuntu 18.04 Bionic
-if [[ "${SHORT_DIST}" != bionic ]] ;then
+# Phased out with Ubuntu 18.04 Bionic and Ubuntu 20.04 Focal
+if [[ "${SHORT_DIST}" != bionic and "${SHORT_DIST}" != focal ]] ;then
   apt-key adv --keyserver "${EDX_PPA_KEY_SERVER}" --recv-keys "${EDX_PPA_KEY_ID}"
   add-apt-repository -y "${EDX_PPA}"
 fi
